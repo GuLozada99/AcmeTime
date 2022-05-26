@@ -24,3 +24,15 @@ class WorkTime:
     def __lt__(self, other: 'WorkTime'):
         return self.hour < other.hour or (self.hour == other.hour and
                                           self.minute < other.minute)
+
+
+@dataclass(frozen=True)
+class WorkInterval:
+    start: WorkTime
+    end: WorkTime
+
+
+@dataclass(frozen=True)
+class Employee:
+    name: str
+    workdays: dict[Day, WorkInterval]
