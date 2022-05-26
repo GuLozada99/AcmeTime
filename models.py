@@ -16,3 +16,11 @@ class Day(Enum):
 class WorkTime:
     hour: int
     minute: int
+
+    def __gt__(self, other: 'WorkTime'):
+        return self.hour > other.hour or (self.hour == other.hour and
+                                          self.minute > other.minute)
+
+    def __lt__(self, other: 'WorkTime'):
+        return self.hour < other.hour or (self.hour == other.hour and
+                                          self.minute < other.minute)
