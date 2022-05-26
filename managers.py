@@ -23,7 +23,19 @@ class WorkTimeManager:
 
 
 class WorkIntervalManager:
-    ...
+
+    @classmethod
+    def create(cls, interval: str) -> WorkInterval:
+        """Given a string in the format HH:MM-HH:MM, returns a WorkInterval
+        object with HH as the hour field and MM as the minute field"""
+        start, end = map(WorkTimeManager.create, interval.split('-'))
+        cls.validate_interval(start, end)
+        return WorkInterval(start, end)
+
+    @staticmethod
+    def validate_interval(start: WorkTime, end: WorkTime):
+        if not (start < end):
+            raise ValueError('Start time must be before end')
 
 
 class EmployeeManager:
