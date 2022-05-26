@@ -41,19 +41,15 @@ class WorkIntervalManager:
 class EmployeeManager:
 
     @classmethod
-    def create(cls, data: str):
-        """Given a string in the format NAME=DAHH:MM-HH:MM,DAHH:MM-HH:MM,
-        ... returns an Employee object with name and a workdays field which has
-        a Day as key and WorkInterval as value"""
-        name, work_data = data.split('=')
-        days_data = work_data.split(',')
+    def create(cls, name: str, data: dict[str, str]):
+        """Given a name and dict with keys as two-char days (DA)
+        and value as interval (HH:MM-HH:MM) returns an Employee object with
+        name and a workdays field which has a Day as key and WorkInterval
+        as value"""
         workdays = {}
-        for day_data in days_data:
-            day = day_data[:2]  # first 2 chars in str are day (DA)
-            interval = day_data[2:]  # the rest is the interval
-
-            day = Day[day]
-            interval = WorkIntervalManager.create(interval)
-            workdays[day] = interval
+        for day, interval in data.items():
+            day_object = Day[day]
+            interval_object = WorkIntervalManager.create(interval)
+            workdays[day_object] = interval_object
 
         return Employee(name, workdays)
