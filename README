@@ -1,6 +1,6 @@
 This repository contains an implementation of a program relating working times
 for distinct employees, as well as how often they have been in the office at
-the same time.
+the same time. It was developed using python version 3.10.4.
 
 The solution is based around 3 models which are WorkTime (represents an hour
 and minute), WorkInterval (represents 2 work times, one being the start and the
@@ -8,12 +8,12 @@ other the end), and Employee (represents a person which has both a name and a
 collection of WorkIntervals mapped to days of the week in which they've
 worked).
 
-For the realization of this project, the following things were taken as a 
+For the realization of this project, the following things were taken as a
 baseline:
     * Only txt files will be used.
-    * Each line on the text file will have the following structure: 
+    * Each line on the text file will have the following structure:
         NAME=DAYSTART-END,DAYSTART-END...
-    * DAY is a two character string representing a day of the week in 
+    * DAY is a two character string representing a day of the week in
     the following form:
         - SU
         - MO
@@ -22,16 +22,19 @@ baseline:
         - TH
         - FR
         - SA
-    * START and END are 5 character strings representing a time of the day 
+    * START and END are 5 character strings representing a time of the day
     on 24 hour format with a colon (:) separating them. Eg: 10:30, 00:15, 23:45
-    * There are no repeated days for the same employee. 
-    Eg: 
+    * There are no repeated days for the same employee.
+    Eg:
         ASTRID=MO10:00-12:00,MO15:00-17:00 is not valid
 
 To execute the program, the only thing needed is to run on the root of the
 project:
     python -m main
 
-By default, the file used will be named 'data.txt', located at the root of 
+By default, the file used will be named 'data.txt', located at the root of
 the project. If a different file want to be used, it can be specified running:
     python -m main FILEPATH
+
+To execute the tests, run the following command:
+    python -m unittest test
