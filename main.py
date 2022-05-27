@@ -7,10 +7,12 @@ PATH = './data.txt'
 
 
 def main():
+    path = sys.argv[1] if sys.argv[1:] else PATH
+
     try:
-        employee_data = TextReader.get_data(PATH)
+        employee_data = TextReader.get_data(path)
     except FileNotFoundError:
-        print(f'File {PATH} does not exist')
+        print(f'File {path} does not exist')
         sys.exit(1)
 
     employees = EmployeeManager.bulk_create(employee_data)
