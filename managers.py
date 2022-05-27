@@ -1,3 +1,6 @@
+from exceptions import (
+    UnacceptableHourError, UnacceptableIntervalError, UnacceptableMinuteError,
+)
 from models import Day, Employee, WorkInterval, WorkTime
 
 
@@ -14,12 +17,12 @@ class WorkTimeManager:
     @staticmethod
     def validate_hour(hour: int):
         if not (0 <= hour < 24):
-            raise ValueError('Hour must be between 0 and 23')
+            raise UnacceptableHourError('Hour must be between 0 and 23')
 
     @staticmethod
     def validate_minute(minute: int):
         if not (0 <= minute < 59):
-            raise ValueError('Minute must be between 0 and 59')
+            raise UnacceptableMinuteError('Minute must be between 0 and 59')
 
 
 class WorkIntervalManager:
@@ -35,7 +38,7 @@ class WorkIntervalManager:
     @staticmethod
     def validate_interval(start: WorkTime, end: WorkTime):
         if not (start < end):
-            raise ValueError('Start time must be before end')
+            raise UnacceptableIntervalError('Start time must be before end')
 
 
 class EmployeeManager:
