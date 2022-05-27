@@ -41,7 +41,7 @@ class WorkIntervalManager:
 class EmployeeManager:
 
     @classmethod
-    def create(cls, name: str, data: dict[str, str]):
+    def create(cls, name: str, data: dict[str, str]) -> Employee:
         """Given a name and dict with keys as two-char days (DA)
         and value as interval (HH:MM-HH:MM) returns an Employee object with
         name and a workdays field which has a Day as key and WorkInterval
@@ -53,3 +53,7 @@ class EmployeeManager:
             workdays[day_object] = interval_object
 
         return Employee(name, workdays)
+
+    @classmethod
+    def bulk_create(cls, employee_data: list) -> list[Employee]:
+        return [cls.create(**data) for data in employee_data]
