@@ -41,7 +41,7 @@ class WorkIntervalManager:
 class EmployeeManager:
 
     @classmethod
-    def create(cls, name: str, data: dict[str, str]):
+    def create(cls, name: str, data: dict[str, str]) -> Employee:
         """Given a name and dict with keys as two-char days (DA)
         and value as interval (HH:MM-HH:MM) returns an Employee object with
         name and a workdays field which has a Day as key and WorkInterval
@@ -53,3 +53,23 @@ class EmployeeManager:
             workdays[day_object] = interval_object
 
         return Employee(name, workdays)
+
+    @classmethod
+    def bulk_create(cls, employee_data: list) -> list[Employee]:
+        return [cls.create(**data) for data in employee_data]
+
+    @staticmethod
+    def get_coincidences(employees: list[Employee]) -> list[str]:
+        """Given a list of employees, returns a list of strings in the
+        format: NAME1-NAME2: COINCIDENCES. If there are no coincidences
+        between two employees, no string will be there to represent it."""
+        result = []
+        for i in range(len(employees)):
+            employee = employees[i]
+            for j in range(i + 1, len(employees)):
+                other_employee = employees[j]
+                if coincidence := employee.have_coincided(other_employee):
+                    result.append(
+                        f'{employee.name}-{other_employee.name}: {coincidence}'
+                    )
+        return result
